@@ -6,9 +6,13 @@
 # In order for this function to run you must first create
 # a new API key for your application via the [Egnyte for Developers](https://developers.egnyte.com/member/register) site.
 #
-#
-
-authenticate_egnyte <- function(username, password, client_id, domain, .autoset_env = TRUE) {
+#' @param RB_username Your Red Bull corporate username
+#' @param RB_password Your Red Bull corporate password
+#' @param autoset_env If left as TRUE will save the resulting token as an environment variable
+#' @param client_id The default client ID for bulldriver. Can leave as default unless using different API.
+#' @param url The top-level Egnyte domain
+#' @export
+authenticate_egnyte <- function(username, password, client_id, domain) {
   # Check client id
   if(stringr::str_length(client_id) != 24) {
     stop("Egnyte client does not look valid. Should be of the form: cba97f3apst9eqzdr5hskggx",
@@ -41,18 +45,14 @@ authenticate_egnyte <- function(username, password, client_id, domain, .autoset_
   # Error out if we had an upload issue
   httr::stop_for_status(auth_request)
 
-  # Upload to user's environment variables
-  if (autoset_env) {
-    Sys.setenv(EGNYTE_TOKEN = token_value)
-  }
-
   # Get user info and print
-  uinfo_url <- paste0(url, "pubapi/v1/userinfo")
+  uinfo_url <- paste0(domain, "pubapi/v1/userinfo")
   udata_req <- httr::GET(url = uinfo_url, httr::add_headers(Authorization = token_value))
   udata <- httr::content(udata_req, "parse")
-  writeLines(paste0("Egnyte user authorized.\n\nWelcome ", udata$first_name, " ", udata$last_name, "."))
+  writeLines(paste0("Egnyte user successfully authorized. Welcome ", udata$first_name, " ", udata$last_name, ".\n"))
+  writeLines(paste0("Add the following lines to your ~/.Renviron file to save this key and your Egnyte domaain until your next password change:\n\"EGNYTETOKEN\" = ", token_value, "\n\"EGNYTEDOMAIN\" = ", domain))
 
-  .rs.restartR()
+  file.edit("~/.Renviron")
 
-  token_value
+  invisible(token_value)
 }
