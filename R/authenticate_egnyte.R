@@ -1,11 +1,11 @@
-# Authenticate a user using the Egnyte Filesystem API
-#
-# This function authenticates a user with the [Egnyte
-# Filesystem API](https://developers.egnyte.com/docs/read/Public_API_Authentication).
-#
-# In order for this function to run you must first create
-# a new API key for your application via the [Egnyte for Developers](https://developers.egnyte.com/member/register) site.
-#
+#' Authenticate a user using the Egnyte Filesystem API
+#'
+#' This function authenticates a user with the [Egnyte
+#' Filesystem API](https://developers.egnyte.com/docs/read/Public_API_Authentication).
+#'
+#' In order for this function to run you must first create
+#' a new API key for your application via the [Egnyte for Developers](https://developers.egnyte.com/member/register) site.
+#'
 #' @param RB_username Your Red Bull corporate username
 #' @param RB_password Your Red Bull corporate password
 #' @param autoset_env If left as TRUE will save the resulting token as an environment variable
