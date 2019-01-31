@@ -12,7 +12,7 @@
 #' @param client_id The default client ID for bulldriver. Can leave as default unless using different API.
 #' @param url The top-level Egnyte domain
 #' @export
-get_token <- function(username, password, client_id, domain) {
+authenticate_egnyte_user <- function(username, password, client_id, domain) {
   # Check client id
   if(stringr::str_length(client_id) != 24) {
     stop("Egnyte client does not look valid. Should be of the form: cba97f3apst9eqzdr5hskggx",

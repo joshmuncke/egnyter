@@ -10,7 +10,7 @@
 #' @param url The top-level Egnyte domain
 #' @param encoding The default encoding to use for the content translation
 #' @export
-download_file <- function(file_path, file_type = "text", token = Sys.getenv("EGNYTETOKEN"), url = Sys.getenv("EGNYTEDOMAIN"), encoding = "ISO-8859-1") {
+download_file <- function(file_path, file_type = "text", encoding = "ISO-8859-1", token = get_parameter("token"), domain = get_parameter("domain")) {
   file_url <- paste0(url, "pubapi/v1/fs-content/")
   file_path <- stringr::str_replace_all(file_path, " ", "%20")
   file_path <- paste0(file_url, file_path)
