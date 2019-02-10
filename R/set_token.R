@@ -4,7 +4,7 @@
 #'
 #' @param username Egnyte username. Use \link[rstudioapi]{showPrompt} to prompt for user input
 #' @param password Egnyte password See \link[rstudioapi]{askForPassword} to prompt for user password input
-#' @param client_id Egnyte client API key. Register through \link[https://developers.egnyte.com/member/register] to obtain
+#' @param client_id Egnyte client API key. Register through <https://developers.egnyte.com/member/register> to obtain
 #' @param domain The top-level Egnyte domain e.g. https://mycompany.egnyte.com/
 #' @param save_token Should the authentication token be saved?
 #' @param save_domain Should the domain be saved?

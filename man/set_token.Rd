@@ -12,7 +12,7 @@ set_token(username, password, client_id, domain, save_token = TRUE,
 
 \item{password}{Egnyte password See \link[rstudioapi]{askForPassword} to prompt for user password input}
 
-\item{client_id}{Egnyte client API key. Register through \link\link{https://developers.egnyte.com/member/register} to obtain}
+\item{client_id}{Egnyte client API key. Register through \url{https://developers.egnyte.com/member/register} to obtain}
 
 \item{domain}{The top-level Egnyte domain e.g. https://mycompany.egnyte.com/}
 
