@@ -27,7 +27,12 @@ set_token <- function(username, password, client_id, domain, save_token = TRUE, 
   invisible()
 }
 
+#' @export
 get_parameter <- function(which_parameter = c("token", "domain")) {
-  if(which_parameter == "token") getOption("egnyter.auth_token")
-  if(which_parameter == "domain") getOption("egnyter.domain")
+  egnyter_parameter <- NA
+
+  if(which_parameter == "token") egnyter_parameter <- getOption("egnyter.auth_token")
+  if(which_parameter == "domain") egnyter_parameter <- getOption("egnyter.domain")
+
+  egnyter_parameter
 }
