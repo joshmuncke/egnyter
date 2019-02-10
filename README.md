@@ -3,43 +3,47 @@
 egnyter
 =======
 
-The goal of egnyter is to allow Egynte to be used as a seamless data repository within R.
+The `egnyter` package allows for seamless useage of Egnyte-based corporate filesharing systems from within R.
+
+For data scientists and analysts at companies that use Egnyte this will allow transfer of datasets and R objects without needing to create local copies or clones of the files. This has the pleasant side-effect of making code more reproducible since datasets can be referenced in their direct Egnyte location as opposed to a local user repository.
+
+`egnyter` supports pipe-ing (through the `magrittr` pipe `%>%`) for interoperability with the [`tidyverse`](https://www.tidyverse.org/) suite of packages.
 
 Installation
 ------------
 
-You can install the released version of egnyter from [CRAN](https://CRAN.R-project.org) with:
+You can install `egnyter` from Github using the following command:
 
 ``` r
-install.packages("egnyter")
+# You must have devtools installed first
+devtools::install_github("deathbydata/egnyter")
 ```
 
-Example
--------
+Setup
+-----
 
-This is a basic example which shows you how to solve a common problem:
+### Registering an API key (do once)
+
+Before you can use `egnyter` you are required to create a client API key. This process can be done easily on the [Egnyte for Developers](https://developers.egnyte.com/member/register) page.
+
+When you register your application you should select "Internal Application (own company use only)" in the "Type" dropdown box.
+
+This API key can be shared to analysts and data scientists who will be using `egnyter`.
+
+### Creating a token (do for every user)
+
+Once you have a token you will be able to authenticate yourself via `egnyter` to allow file transfers. To do this use the following code:
 
 ``` r
-## basic example code
+egnyter::set_token(username = "your egnyte username",
+                   password = "your egnyte password",
+                   client_id = "your internal application API key",
+                   domain = "your custom egnyte domain") # Typically https://<yourcompanyname>.egnyte.com
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
+Usage
+-----
 
-``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
-```
+### Downloading
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
-
-You can also embed plots, for example:
-
-<img src="man/figures/README-pressure-1.png" width="100%" />
-
-In that case, don't forget to commit and push the resulting figure files, so they display on GitHub!
+### Uploading
