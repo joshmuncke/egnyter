@@ -109,12 +109,12 @@ download_excel <- function (file_path, encoding = "ISO-8859-1", token = get_para
 #' @param url The top-level Egnyte domain
 #' @param encoding The default encoding to use for the content translation
 #' @export
-download_rda <- function (file_path, encoding = "ISO-8859-1", token = get_parameter("token"), domain = get_parameter("domain"))
-{
+download_rdata <- function (file_path, encoding = "ISO-8859-1", token = get_parameter("token"), domain = get_parameter("domain")) {
   file_content <- egnyter::download_file(file_path, "raw", encoding, token, domain)
   tmp_name <- tempfile(fileext = ".Rda")
   writeBin(file_content, tmp_name)
-  f_data <- load(tmp_name)
+  f_data <- load(tmp_name, .GlobalEnv)
+  nameofobjects <- get(f_data)
   file.remove(tmp_name)
-  f_data
+  invisible(nameofobjects)
 }
