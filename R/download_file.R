@@ -63,9 +63,9 @@ download_feather <- function (file_path, encoding = "ISO-8859-1", token = get_pa
 download_csv <- function (file_path, encoding = "ISO-8859-1", token = get_parameter("token"), domain = get_parameter("domain"))
 {
   file_content <- egnyter::download_file(file_path, "raw", encoding, token, domain)
-  tmp_name <- tempfile(fileext = ".feather")
+  tmp_name <- tempfile(fileext = ".csv")
   writeBin(file_content, tmp_name)
-  f_data <- feather::read_feather(tmp_name)
+  f_data <- readr::read_csv(tmp_name)
   file.remove(tmp_name)
   f_data
 }
@@ -82,14 +82,19 @@ download_csv <- function (file_path, encoding = "ISO-8859-1", token = get_parame
 #' @param url The top-level Egnyte domain
 #' @param encoding The default encoding to use for the content translation
 #' @export
-download_xl <- function (file_path, encoding = "ISO-8859-1", token = get_parameter("token"), domain = get_parameter("domain"))
+download_excel <- function (file_path, encoding = "ISO-8859-1", token = get_parameter("token"), domain = get_parameter("domain"), ...)
 {
+  file_extension <- stringr::str_extract(file_path, "(\\.[^.]+)$")
+  if (file_extension != ".xlsx" && file_extension != ".xls") {
+    stop("This function is for downloading Excel files only", call. = FALSE)
+  }
+
   file_content <- egnyter::download_file(file_path, "raw", encoding, token, domain)
-  tmp_name <- tempfile(fileext = ".feather")
+  tmp_name <- paste0(tempfile(), file_extension)
   writeBin(file_content, tmp_name)
-  f_data <- feather::read_feather(tmp_name)
+  f_data <- readxl::read_excel(path = tmp_name, ...)
   file.remove(tmp_name)
-  f_data
+  invisible(f_data)
 }
 
 #' Download a file from Bulldrive (any format)
@@ -107,9 +112,9 @@ download_xl <- function (file_path, encoding = "ISO-8859-1", token = get_paramet
 download_rda <- function (file_path, encoding = "ISO-8859-1", token = get_parameter("token"), domain = get_parameter("domain"))
 {
   file_content <- egnyter::download_file(file_path, "raw", encoding, token, domain)
-  tmp_name <- tempfile(fileext = ".feather")
+  tmp_name <- tempfile(fileext = ".Rda")
   writeBin(file_content, tmp_name)
-  f_data <- feather::read_feather(tmp_name)
+  f_data <- load(tmp_name)
   file.remove(tmp_name)
   f_data
 }
