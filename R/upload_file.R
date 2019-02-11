@@ -84,3 +84,26 @@ upload_rdata <- function(x, path, token = egnyter::get_parameter("token"), domai
   # Return x invisibly
   invisible(x)
 }
+
+#' Download a file from Bulldrive (any format)
+#'
+#' This function downloads and parses a file of any type from Bulldrive.
+#' The raw content will be returned and will need to be parsed for further
+#' use if needed.
+#'
+#' @param file_path The full path (starting 'Shared/') of the remote file
+#' @param file_type The MIME file type to pull the file in. See \link[httr]{content} for more info
+#' @param token Your Bulldrive authentication token (create with \link[bulldriver]{get_token})
+#' @param url The top-level Egnyte domain
+#' @param encoding The default encoding to use for the content translation
+#' @export
+upload_file <- function(file_path, file_type = "raw", encoding = "ISO-8859-1", token = get_parameter("token"), domain = get_parameter("domain")) {
+  file_url <- paste0(url, "/pubapi/v1/fs-content/")
+  dest_path <- stringr::str_replace_all(dest_path, " ", "%20")
+  dest_path <- paste0(file_url, dest_path)
+  csv_data <- readr::format_csv(data_frame)
+  upload_req <- httr::POST(url = dest_path, httr::add_headers(Authorization = token),
+                           body = list(file = csv_data))
+  httr::stop_for_status(upload_req)
+  invisible(data_frame)
+}

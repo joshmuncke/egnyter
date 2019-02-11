@@ -2,7 +2,7 @@
 egnyter
 =======
 
-The `egnyter` package allows for seamless usage of Egnyte-based corporate filesharing systems from within R.
+The `egnyter` package allows for seamless usage of Egnyte-based corporate filesharing systems from within an R environment.
 
 For data scientists and analysts at companies that use Egnyte this will allow transfer of datasets and R objects without needing to create local copies or clones of the files. This has the pleasant side-effect of making code more reproducible since datasets can be referenced in their direct Egnyte location as opposed to a local user repository.
 
