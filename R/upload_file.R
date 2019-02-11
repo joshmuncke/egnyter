@@ -72,7 +72,7 @@ upload_rdata <- function(x, path, token = egnyter::get_parameter("token"), domai
 
   # Write to temp csv file
   tmp_name <- tempfile(fileext = ".Rdata")
-  save(x = x, file = tmp_name)
+  save(x, file = tmp_name)
 
   # Upload request
   upload_req <- httr::POST(url = final_path, httr::add_headers(Authorization = token), body = httr::upload_file(tmp_name))
