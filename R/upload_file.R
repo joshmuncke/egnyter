@@ -26,7 +26,7 @@ upload_file <- function(file, dest, token = get_parameter("token"), domain = get
   dest <- stringr::str_replace_all(dest, " ", "%20")
 
   # Formatted upload path
-  upload_path <- paste0(domain, "/pubapi/v1/fs-content/", dest)
+  upload_path <- paste0(domain, "pubapi/v1/fs-content/", dest)
 
   # Upload request
   upload_req <- httr::POST(url = upload_path, httr::add_headers(Authorization = token), body = httr::upload_file(file))

@@ -32,6 +32,7 @@ set_token <- function(domain, app_key, username, password) {
 }
 
 # Get Egnyter token from user options
+#' @export
 get_parameter <- function(which_parameter = c("token", "domain")) {
   egnyter_parameter <- NA
 
