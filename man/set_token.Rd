@@ -8,9 +8,9 @@ set_token(username, password, client_id, domain, save_token = TRUE,
   save_domain = TRUE)
 }
 \arguments{
-\item{username}{Egnyte username. Use \link[rstudioapi]{showPrompt} to prompt for user input}
+\item{username}{Egnyte username. Use \link\link{rstudioapi}{showPrompt} to prompt for user input}
 
-\item{password}{Egnyte password See \link[rstudioapi]{askForPassword} to prompt for user password input}
+\item{password}{Egnyte password See \link\link{rstudioapi}{askForPassword} to prompt for user password input}
 
 \item{client_id}{Egnyte client API key. Register through \url{https://developers.egnyte.com/member/register} to obtain}
 

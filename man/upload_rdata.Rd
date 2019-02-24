@@ -10,9 +10,9 @@ upload_rdata(x, path, token = egnyter::get_parameter("token"),
 \arguments{
 \item{x}{The full path (starting 'Shared/') of the remote file}
 
-\item{path}{The MIME file type to pull the file in. See \link[httr]{content} for more info}
+\item{path}{The MIME file type to pull the file in. See \link\link{httr}{content} for more info}
 
-\item{token}{Your Bulldrive authentication token (create with \link[bulldriver]{get_token})}
+\item{token}{Your Bulldrive authentication token (create with \link\link{bulldriver}{get_token})}
 
 \item{domain}{The top-level Egnyte domain}
 }

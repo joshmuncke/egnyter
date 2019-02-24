@@ -10,11 +10,11 @@ download_file(file_path, file_type = "raw", encoding = "ISO-8859-1",
 \arguments{
 \item{file_path}{The full path (starting 'Shared/') of the remote file}
 
-\item{file_type}{The MIME file type to pull the file in. See \link[httr]{content} for more info}
+\item{file_type}{The MIME file type to pull the file in. See \link\link{httr}{content} for more info}
 
 \item{encoding}{The default encoding to use for the content translation}
 
-\item{token}{Your Bulldrive authentication token (create with \link[bulldriver]{get_token})}
+\item{token}{Your Bulldrive authentication token (create with \link\link{bulldriver}{get_token})}
 
 \item{url}{The top-level Egnyte domain}
 }

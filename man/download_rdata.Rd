@@ -12,9 +12,9 @@ download_rdata(file_path, encoding = "ISO-8859-1",
 
 \item{encoding}{The default encoding to use for the content translation}
 
-\item{token}{Your Bulldrive authentication token (create with \link[bulldriver]{get_token})}
+\item{token}{Your Bulldrive authentication token (create with \link\link{bulldriver}{get_token})}
 
-\item{file_type}{The MIME file type to pull the file in. See \link[httr]{content} for more info}
+\item{file_type}{The MIME file type to pull the file in. See \link\link{httr}{content} for more info}
 
 \item{url}{The top-level Egnyte domain}
 }

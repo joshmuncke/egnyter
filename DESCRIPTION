@@ -19,3 +19,5 @@ Imports:
     readxl,
     feather,
     magrittr
+Suggests: 
+    testthat
