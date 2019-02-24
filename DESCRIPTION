@@ -17,4 +17,5 @@ Imports:
     testthat,
     readr,
     readxl,
-    feather
+    feather,
+    magrittr
