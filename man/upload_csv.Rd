@@ -4,20 +4,21 @@
 \alias{upload_csv}
 \title{Upload a csv file to Egnyte}
 \usage{
-upload_csv(x, path, token = egnyter::get_parameter("token"),
-  domain = egnyter::get_parameter("domain"))
+upload_csv(x, dest, token = egnyter::get_parameter("token"),
+  domain = egnyter::get_parameter("domain"), ...)
 }
 \arguments{
-\item{x}{The full path (starting 'Shared/') of the remote file}
+\item{x}{A data frame to upload to Egnyte}
 
-\item{path}{The MIME file type to pull the file in. See \link\link{httr}{content} for more info}
+\item{dest}{The remote Egnyte folder you want to upload to}
 
-\item{token}{Your Bulldrive authentication token (create with \link\link{bulldriver}{get_token})}
+\item{token}{User's Egnyter authorisation token}
 
-\item{domain}{The top-level Egnyte domain}
+\item{domain}{Egnyte domain URL}
+
+\item{...}{Additional arguments to be passed to \code{write_csv}}
 }
 \description{
-This function downloads and parses a file of any type from Bulldrive.
-The raw content will be returned and will need to be parsed for further
-use if needed.
+This function converts a local data frame into a csv file and uploads it to a specified Egnyte directory.
+Data frame to csv file conversion is done using \code{\link[readr]{write_csv}}.
 }

@@ -4,20 +4,21 @@
 \alias{upload_rdata}
 \title{Upload an RData file to Egnyte}
 \usage{
-upload_rdata(x, path, token = egnyter::get_parameter("token"),
-  domain = egnyter::get_parameter("domain"))
+upload_rdata(x, dest, token = egnyter::get_parameter("token"),
+  domain = egnyter::get_parameter("domain"), ...)
 }
 \arguments{
-\item{x}{The full path (starting 'Shared/') of the remote file}
+\item{x}{A local object to upload to Egnyte}
 
-\item{path}{The MIME file type to pull the file in. See \link\link{httr}{content} for more info}
+\item{dest}{The remote Egnyte folder you want to upload to}
 
-\item{token}{Your Bulldrive authentication token (create with \link\link{bulldriver}{get_token})}
+\item{token}{User's Egnyter authorisation token}
 
-\item{domain}{The top-level Egnyte domain}
+\item{domain}{Egnyte domain URL}
+
+\item{...}{Additional arguments to be passed to \code{save}}
 }
 \description{
-This function downloads and parses a file of any type from Bulldrive.
-The raw content will be returned and will need to be parsed for further
-use if needed.
+This function saves a local object as an RData file and uploads it to a specified Egnyte directory.
+Object to RData conversion is done using \code{\link[base]{save}}.
 }

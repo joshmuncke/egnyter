@@ -2,24 +2,22 @@
 % Please edit documentation in R/upload_file.R
 \name{upload_file}
 \alias{upload_file}
-\title{Download a file from Bulldrive (any format)}
+\title{Upload a local file to Egnyte}
 \usage{
-upload_file(file_path, file_type = "raw", encoding = "ISO-8859-1",
-  token = get_parameter("token"), domain = get_parameter("domain"))
+upload_file(file, dest, token = get_parameter("token"),
+  domain = get_parameter("domain"))
 }
 \arguments{
-\item{file_path}{The full path (starting 'Shared/') of the remote file}
+\item{file}{Path to a local file}
 
-\item{file_type}{The MIME file type to pull the file in. See \link\link{httr}{content} for more info}
+\item{dest}{Remote Egnyte directory destination}
 
-\item{encoding}{The default encoding to use for the content translation}
+\item{token}{User's Egnyter authorisation token}
 
-\item{token}{Your Bulldrive authentication token (create with \link\link{bulldriver}{get_token})}
-
-\item{url}{The top-level Egnyte domain}
+\item{domain}{Egnyte domain URL}
 }
 \description{
-This function downloads and parses a file of any type from Bulldrive.
-The raw content will be returned and will need to be parsed for further
-use if needed.
+This function uploads a local file directly to a specified remote Egnyte directory. This function can
+be used to upload a local file of any kind directly to Egnyte. It can also be used to implement additional helper
+functions e.g. \code{\link{upload_csv}} for specific file type uploads.
 }

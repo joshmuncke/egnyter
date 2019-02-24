@@ -1,40 +1,91 @@
+#' Upload a local file to Egnyte
+#'
+#' This function uploads a local file directly to a specified remote Egnyte directory. This function can
+#' be used to upload a local file of any kind directly to Egnyte. It can also be used to implement additional helper
+#' functions e.g. \code{\link{upload_csv}} for specific file type uploads.
+#'
+#' @param file Path to a local file
+#' @param dest Remote Egnyte directory destination
+#' @param token User's Egnyter authorisation token
+#' @param domain Egnyte domain URL
+#' @export
+upload_file <- function(file, dest, token = get_parameter("token"), domain = get_parameter("domain")) {
+  # Check if file exists
+  if(!file.exists(file)) stop("Invalid file path.", call. = FALSE)
+
+  # Check domain
+  if(!egnyter:::validate_domain(domain)) stop("Invalid Egnyte domain.", call. = FALSE)
+
+  # Check authorisation token
+  if(!egnyter:::validate_token(token)) stop("Invalid Egnyte token.", call. = FALSE)
+
+  # Add a trailing '/' if not given
+  if(stringr::str_sub(domain, -1) != "/") domain <- paste0(domain,"/")
+
+  # Replace whitespace in destination folder path
+  dest <- stringr::str_replace_all(dest, " ", "%20")
+
+  # Formatted upload path
+  upload_path <- paste0(domain, "/pubapi/v1/fs-content/", dest)
+
+  # Upload request
+  upload_req <- httr::POST(url = upload_path, httr::add_headers(Authorization = token), body = httr::upload_file(file))
+  httr::stop_for_status(upload_req)
+
+  invisible()
+}
+
+
 #' Upload a csv file to Egnyte
 #'
-#' This function downloads and parses a file of any type from Bulldrive.
-#' The raw content will be returned and will need to be parsed for further
-#' use if needed.
+#' This function converts a local data frame into a csv file and uploads it to a specified Egnyte directory.
+#' Data frame to csv file conversion is done using \code{\link[readr]{write_csv}}.
 #'
-#' @param x The full path (starting 'Shared/') of the remote file
-#' @param path The MIME file type to pull the file in. See \link[httr]{content} for more info
-#' @param token Your Bulldrive authentication token (create with \link[bulldriver]{get_token})
-#' @param domain The top-level Egnyte domain
+#' @param x A data frame to upload to Egnyte
+#' @param dest The remote Egnyte folder you want to upload to
+#' @param token User's Egnyter authorisation token
+#' @param domain Egnyte domain URL
+#' @param ... Additional arguments to be passed to `write_csv`
 #' @export
-upload_csv <- function(x, path, token = egnyter::get_parameter("token"), domain = egnyter::get_parameter("domain")) {
+upload_csv <- function(x, dest, token = egnyter::get_parameter("token"), domain = egnyter::get_parameter("domain"), ...) {
   # This function will only work for data frame
   stopifnot(is.data.frame(x))
 
-  # Validate domain
-  if(1==0) {
-    stop("Invalid or missing Egnyte domain. Use set_token() to set or update it.", call. = FALSE)
-  }
-
-  # Validate token
-  if(1==0) {
-    stop("Invalid or missing Egnyte token Use set_token() to set or update it.", call. = FALSE)
-  }
-
-  # Create fully formed upload URL
-  full_domain <- paste0(domain, "/pubapi/v1/fs-content/")
-  formatted_path <- stringr::str_replace_all(path, " ", "%20")
-  final_path <- paste0(full_domain, formatted_path)
-
   # Write to temp csv file
   tmp_name <- tempfile(fileext = ".csv")
-  readr::write_csv(x = x, path = tmp_name)
+  readr::write_csv(x = x, path = tmp_name, ...)
 
   # Upload request
-  upload_req <- httr::POST(url = final_path, httr::add_headers(Authorization = token), body = httr::upload_file(tmp_name))
-  httr::stop_for_status(upload_req)
+  egnyter::upload_file(tmp_name, dest, token, domain)
+
+  # Delete temp file
+  file.remove(tmp_name)
+
+  # Return x invisibly
+  invisible(x)
+}
+
+#' Upload a feather file to Egnyte
+#'
+#' This function converts a local data frame into a feather file and uploads it to a specified Egnyte directory.
+#' Data frame to feather file conversion is done using \code{\link[feather]{write_feather}}.
+#'
+#' @param x A data frame to upload to Egnyte
+#' @param dest The remote Egnyte folder you want to upload to
+#' @param token User's Egnyter authorisation token
+#' @param domain Egnyte domain URL
+#' @param ... Additional arguments to be passed to `write_feather`
+#' @export
+upload_feather <- function(x, dest, token = egnyter::get_parameter("token"), domain = egnyter::get_parameter("domain"), ...) {
+  # This function will only work for data frame
+  stopifnot(is.data.frame(x))
+
+  # Write to temp feather file
+  tmp_name <- tempfile(fileext = ".feather")
+  feather::write_feather(x = x, path = tmp_name, ...)
+
+  # Upload request
+  egnyter::upload_file(tmp_name, dest, token, domain)
 
   # Delete temp file
   file.remove(tmp_name)
@@ -45,65 +96,27 @@ upload_csv <- function(x, path, token = egnyter::get_parameter("token"), domain 
 
 #' Upload an RData file to Egnyte
 #'
-#' This function downloads and parses a file of any type from Bulldrive.
-#' The raw content will be returned and will need to be parsed for further
-#' use if needed.
+#' This function saves a local object as an RData file and uploads it to a specified Egnyte directory.
+#' Object to RData conversion is done using \code{\link[base]{save}}.
 #'
-#' @param x The full path (starting 'Shared/') of the remote file
-#' @param path The MIME file type to pull the file in. See \link[httr]{content} for more info
-#' @param token Your Bulldrive authentication token (create with \link[bulldriver]{get_token})
-#' @param domain The top-level Egnyte domain
+#' @param x A local object to upload to Egnyte
+#' @param dest The remote Egnyte folder you want to upload to
+#' @param token User's Egnyter authorisation token
+#' @param domain Egnyte domain URL
+#' @param ... Additional arguments to be passed to `save`
 #' @export
-upload_rdata <- function(x, path, token = egnyter::get_parameter("token"), domain = egnyter::get_parameter("domain")) {
-  # Validate domain
-  if(1==0) {
-    stop("Invalid or missing Egnyte domain. Use set_token() to set or update it.", call. = FALSE)
-  }
-
-  # Validate token
-  if(1==0) {
-    stop("Invalid or missing Egnyte token Use set_token() to set or update it.", call. = FALSE)
-  }
-
-  # Create fully formed upload URL
-  full_domain <- paste0(domain, "/pubapi/v1/fs-content/")
-  formatted_path <- stringr::str_replace_all(path, " ", "%20")
-  final_path <- paste0(full_domain, formatted_path)
-
-  # Write to temp csv file
-  tmp_name <- tempfile(fileext = ".Rdata")
-  save(x, file = tmp_name)
+upload_rdata <- function(x, dest, token = egnyter::get_parameter("token"), domain = egnyter::get_parameter("domain"), ...) {
+  # Write to temp RData file
+  tmp_name <- tempfile(fileext = ".RData")
+  save(x, file = tmp_name, ...)
 
   # Upload request
-  upload_req <- httr::POST(url = final_path, httr::add_headers(Authorization = token), body = httr::upload_file(tmp_name))
-  httr::stop_for_status(upload_req)
+  egnyter::upload_file(tmp_name, dest, token, domain)
 
   # Delete temp file
   file.remove(tmp_name)
 
   # Return x invisibly
+  # Does this make sense for a non-dataframe?
   invisible(x)
-}
-
-#' Download a file from Bulldrive (any format)
-#'
-#' This function downloads and parses a file of any type from Bulldrive.
-#' The raw content will be returned and will need to be parsed for further
-#' use if needed.
-#'
-#' @param file_path The full path (starting 'Shared/') of the remote file
-#' @param file_type The MIME file type to pull the file in. See \link[httr]{content} for more info
-#' @param token Your Bulldrive authentication token (create with \link[bulldriver]{get_token})
-#' @param url The top-level Egnyte domain
-#' @param encoding The default encoding to use for the content translation
-#' @export
-upload_file <- function(file_path, file_type = "raw", encoding = "ISO-8859-1", token = get_parameter("token"), domain = get_parameter("domain")) {
-  file_url <- paste0(url, "/pubapi/v1/fs-content/")
-  dest_path <- stringr::str_replace_all(dest_path, " ", "%20")
-  dest_path <- paste0(file_url, dest_path)
-  csv_data <- readr::format_csv(data_frame)
-  upload_req <- httr::POST(url = dest_path, httr::add_headers(Authorization = token),
-                           body = list(file = csv_data))
-  httr::stop_for_status(upload_req)
-  invisible(data_frame)
 }
