@@ -73,7 +73,7 @@ If the filenames you specify already exist in Egnyte - **they will be overwritte
 
 Note that, as long as we have run `set_token` (see above) we can omit the "token" and "domain" arguments as `egnyter` will pull them from your options.
 
-To upload a remote file of any kind to a local file, you can use `download_file`.
+To upload a remote file of any kind to a local file, you can use `upload_file`.
 
 ``` r
 upload_file("/data/photos/file.jpg", "/Shared/path/to/your/new/file.jpg")
