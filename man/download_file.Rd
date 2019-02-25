@@ -2,24 +2,23 @@
 % Please edit documentation in R/download_file.R
 \name{download_file}
 \alias{download_file}
-\title{Download a file from Bulldrive (any format)}
+\title{Download a file from Egnyte}
 \usage{
-download_file(file_path, file_type = "raw", encoding = "ISO-8859-1",
-  token = get_parameter("token"), domain = get_parameter("domain"))
+download_file(source, local_dest, file_type = "raw",
+  encoding = "ISO-8859-1", token = get_parameter("token"),
+  domain = get_parameter("domain"))
 }
 \arguments{
-\item{file_path}{The full path (starting 'Shared/') of the remote file}
+\item{source}{The full path (starting 'Shared/') of the remote file}
 
-\item{file_type}{The MIME file type to pull the file in. See \link\link{httr}{content} for more info}
+\item{file_type}{The MIME file type to pull the file in, see \link[httr]{content} for more info}
 
-\item{encoding}{The default encoding to use for the content translation}
+\item{encoding}{The default encoding to use for the content translatio, see \link[httr]{content} for more info}
 
-\item{token}{Your Bulldrive authentication token (create with \link\link{bulldriver}{get_token})}
+\item{token}{User's Egnyter authorisation token}
 
-\item{url}{The top-level Egnyte domain}
+\item{domain}{Egnyte domain URL}
 }
 \description{
-This function downloads and parses a file of any type from Bulldrive.
-The raw content will be returned and will need to be parsed for further
-use if needed.
+This function downloads and parses a file of any type from Egnyte.
 }

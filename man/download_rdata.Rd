@@ -2,24 +2,24 @@
 % Please edit documentation in R/download_file.R
 \name{download_rdata}
 \alias{download_rdata}
-\title{Download a file from Bulldrive (any format)}
+\title{Download an RData file from Egnyte and load contents into R}
 \usage{
-download_rdata(file_path, encoding = "ISO-8859-1",
-  token = get_parameter("token"), domain = get_parameter("domain"))
+download_rdata(source, encoding = "ISO-8859-1",
+  token = get_parameter("token"), domain = get_parameter("domain"),
+  ...)
 }
 \arguments{
-\item{file_path}{The full path (starting 'Shared/') of the remote file}
+\item{source}{The path of the remote file in your Egnyte filesystem}
 
-\item{encoding}{The default encoding to use for the content translation}
+\item{encoding}{The default encoding to use for content translation}
 
-\item{token}{Your Bulldrive authentication token (create with \link\link{bulldriver}{get_token})}
+\item{token}{User's Egnyter authorisation token}
 
-\item{file_type}{The MIME file type to pull the file in. See \link\link{httr}{content} for more info}
+\item{domain}{Egnyte domain URL}
 
-\item{url}{The top-level Egnyte domain}
+\item{...}{Additional arguments to be passed to \code{load}}
 }
 \description{
-This function downloads and parses a file of any type from Bulldrive.
-The raw content will be returned and will need to be parsed for further
-use if needed.
+This function downloads and parses an RData file from Egnyte into
+local objects (as if you had loaded the file using \link[base]{load}).
 }

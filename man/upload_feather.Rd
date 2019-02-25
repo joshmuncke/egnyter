@@ -10,7 +10,7 @@ upload_feather(x, dest, token = egnyter::get_parameter("token"),
 \arguments{
 \item{x}{A data frame to upload to Egnyte}
 
-\item{dest}{The remote Egnyte folder you want to upload to}
+\item{dest}{The remote Egnyte file path you want to upload to}
 
 \item{token}{User's Egnyter authorisation token}
 

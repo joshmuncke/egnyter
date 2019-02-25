@@ -4,19 +4,17 @@
 \alias{upload_rdata}
 \title{Upload an RData file to Egnyte}
 \usage{
-upload_rdata(x, dest, token = egnyter::get_parameter("token"),
-  domain = egnyter::get_parameter("domain"), ...)
+upload_rdata(..., dest, token = egnyter::get_parameter("token"),
+  domain = egnyter::get_parameter("domain"))
 }
 \arguments{
-\item{x}{A local object to upload to Egnyte}
+\item{...}{The names of the objects to be saved}
 
-\item{dest}{The remote Egnyte folder you want to upload to}
+\item{dest}{The remote Egnyte file path you want to upload to}
 
 \item{token}{User's Egnyter authorisation token}
 
 \item{domain}{Egnyte domain URL}
-
-\item{...}{Additional arguments to be passed to \code{save}}
 }
 \description{
 This function saves a local object as an RData file and uploads it to a specified Egnyte directory.

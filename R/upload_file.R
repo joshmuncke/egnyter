@@ -5,7 +5,7 @@
 #' functions e.g. \code{\link{upload_csv}} for specific file type uploads.
 #'
 #' @param file Path to a local file
-#' @param dest Remote Egnyte directory destination
+#' @param dest The remote Egnyte file path you want to upload to
 #' @param token User's Egnyter authorisation token
 #' @param domain Egnyte domain URL
 #' @export
@@ -42,7 +42,7 @@ upload_file <- function(file, dest, token = get_parameter("token"), domain = get
 #' Data frame to csv file conversion is done using \code{\link[readr]{write_csv}}.
 #'
 #' @param x A data frame to upload to Egnyte
-#' @param dest The remote Egnyte folder you want to upload to
+#' @param dest The remote Egnyte file path you want to upload to
 #' @param token User's Egnyter authorisation token
 #' @param domain Egnyte domain URL
 #' @param ... Additional arguments to be passed to `write_csv`
@@ -71,7 +71,7 @@ upload_csv <- function(x, dest, token = egnyter::get_parameter("token"), domain 
 #' Data frame to feather file conversion is done using \code{\link[feather]{write_feather}}.
 #'
 #' @param x A data frame to upload to Egnyte
-#' @param dest The remote Egnyte folder you want to upload to
+#' @param dest The remote Egnyte file path you want to upload to
 #' @param token User's Egnyter authorisation token
 #' @param domain Egnyte domain URL
 #' @param ... Additional arguments to be passed to `write_feather`
@@ -99,16 +99,15 @@ upload_feather <- function(x, dest, token = egnyter::get_parameter("token"), dom
 #' This function saves a local object as an RData file and uploads it to a specified Egnyte directory.
 #' Object to RData conversion is done using \code{\link[base]{save}}.
 #'
-#' @param x A local object to upload to Egnyte
-#' @param dest The remote Egnyte folder you want to upload to
+#' @param ... The names of the objects to be saved
+#' @param dest The remote Egnyte file path you want to upload to
 #' @param token User's Egnyter authorisation token
 #' @param domain Egnyte domain URL
-#' @param ... Additional arguments to be passed to `save`
 #' @export
-upload_rdata <- function(x, dest, token = egnyter::get_parameter("token"), domain = egnyter::get_parameter("domain"), ...) {
+upload_rdata <- function(..., dest, token = egnyter::get_parameter("token"), domain = egnyter::get_parameter("domain")) {
   # Write to temp RData file
   tmp_name <- tempfile(fileext = ".RData")
-  save(x, file = tmp_name, ...)
+  save(..., file = tmp_name)
 
   # Upload request
   egnyter::upload_file(tmp_name, dest, token, domain)

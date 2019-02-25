@@ -10,7 +10,7 @@ upload_file(file, dest, token = get_parameter("token"),
 \arguments{
 \item{file}{Path to a local file}
 
-\item{dest}{Remote Egnyte directory destination}
+\item{dest}{The remote Egnyte file path you want to upload to}
 
 \item{token}{User's Egnyter authorisation token}
 

@@ -2,24 +2,24 @@
 % Please edit documentation in R/download_file.R
 \name{download_csv}
 \alias{download_csv}
-\title{Download a file from Bulldrive (any format)}
+\title{Download a csv file from Egnyte into a local data frame}
 \usage{
-download_csv(file_path, encoding = "ISO-8859-1",
-  token = get_parameter("token"), domain = get_parameter("domain"))
+download_csv(source, encoding = "ISO-8859-1",
+  token = get_parameter("token"), domain = get_parameter("domain"),
+  ...)
 }
 \arguments{
-\item{file_path}{The full path (starting 'Shared/') of the remote file}
+\item{source}{The path of the remote file in your Egnyte filesystem}
 
-\item{encoding}{The default encoding to use for the content translation}
+\item{encoding}{The default encoding to use for content translation}
 
-\item{token}{Your Bulldrive authentication token (create with \link\link{bulldriver}{get_token})}
+\item{token}{User's Egnyter authorisation token}
 
-\item{file_type}{The MIME file type to pull the file in. See \link\link{httr}{content} for more info}
+\item{domain}{Egnyte domain URL}
 
-\item{url}{The top-level Egnyte domain}
+\item{...}{Additional arguments to be passed to \code{read_csv}}
 }
 \description{
-This function downloads and parses a file of any type from Bulldrive.
-The raw content will be returned and will need to be parsed for further
-use if needed.
+This function downloads and parses a csv file from Egnyte into
+a local data frame in R.
 }
