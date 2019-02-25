@@ -3,9 +3,9 @@
 #' This function downloads and parses a file of any type from Egnyte.
 #'
 #' @param source The full path (starting 'Shared/') of the remote file
-#' @param local_dest
+#' @param local_dest The local file to be created
 #' @param file_type The MIME file type to pull the file in, see \link[httr]{content} for more info
-#' @param encoding The default encoding to use for the content translatio, see \link[httr]{content} for more info
+#' @param encoding The default encoding to use for the content translation, see \link[httr]{content} for more info
 #' @param token User's Egnyter authorisation token
 #' @param domain Egnyte domain URL
 #' @export
@@ -143,7 +143,7 @@ download_excel <- function(source, encoding = "ISO-8859-1", token = get_paramete
 #' @param domain Egnyte domain URL
 #' @param ... Additional arguments to be passed to `load`
 #' @export
-download_rdata <- function(source, encoding = "ISO-8859-1", token = get_parameter("token"), domain = get_parameter("domain"), ...)
+load_from_egnyte <- function(source, encoding = "ISO-8859-1", token = get_parameter("token"), domain = get_parameter("domain"), ...)
 {
   # Create a new temporary file (RData)
   tmp_name <- tempfile(fileext = ".RData")

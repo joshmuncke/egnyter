@@ -84,6 +84,8 @@ upload_feather <- function(x, dest, token = egnyter::get_parameter("token"), dom
   tmp_name <- tempfile(fileext = ".feather")
   feather::write_feather(x = x, path = tmp_name, ...)
 
+  test <- file.exists(tmp_name)
+
   # Upload request
   egnyter::upload_file(tmp_name, dest, token, domain)
 
@@ -104,7 +106,7 @@ upload_feather <- function(x, dest, token = egnyter::get_parameter("token"), dom
 #' @param token User's Egnyter authorisation token
 #' @param domain Egnyte domain URL
 #' @export
-upload_rdata <- function(..., dest, token = egnyter::get_parameter("token"), domain = egnyter::get_parameter("domain")) {
+save_to_egnyte <- function(..., dest, token = egnyter::get_parameter("token"), domain = egnyter::get_parameter("domain")) {
   # Write to temp RData file
   tmp_name <- tempfile(fileext = ".RData")
   save(..., file = tmp_name)
@@ -117,5 +119,5 @@ upload_rdata <- function(..., dest, token = egnyter::get_parameter("token"), dom
 
   # Return x invisibly
   # Does this make sense for a non-dataframe?
-  invisible(x)
+  invisible(TRUE)
 }

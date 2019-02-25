@@ -66,6 +66,24 @@ When using each of these you are asked to provide a "path" argument which is the
 
 ### Uploading
 
+To upload a local data frame as a new file in Egnyte use `upload_csv` or `upload_feather` which make a call to `readr::write_csv` and `feather::write_feather` respectively, therefore arguments to these functions can be passed after the path.
+
+```{r eval = F}
+my_car_data <- mtcars
+
+my_car_data %>% upload_csv("/Shared/path/to/your/file.csv")
+my_car_data %>% upload_feather("/Shared/path/to/your/file.feather")
+```
+
+If the filenames you specify already exist in Egnyte - **they will be overwritten**. However - depending on your settings - Egnyte will simply create a new version of this file automatically.
+
+Note that, as long as we have run `set_token` (see above) we can omit the "token" and "domain" arguments as `egnyter` will pull them from your options.
+
+To upload a remote file of any kind to a local file, you can use `download_file`.
+
+```{r eval = F}
+upload_file("/data/photos/file.jpg", "/Shared/path/to/your/new/file.jpg")
+```
 
 ### Downloading
 
@@ -79,7 +97,29 @@ my_excel_data <- download_excel("/Shared/path/to/your/file.xlsx", sheet = "datas
 
 Note that, as long as we have run `set_token` (see above) we can omit the "token" and "domain" arguments as `egnyter` will pull them from your options.
 
-Remote `.Rdata` files can be read into R using `download_rdata`.
+To download a remote file of any kind to a local file, you can use `download_file`.
+
+```{r eval = F}
+download_file("/Shared/path/to/your/file.jpg", "/data/photos/file.jpg")
+```
+
+### Loading and Saving
+
+In addition to transferring data stored in data frames to Egnyte, you may also want to transfer other objects (such as model objects). To support this kind of activity use the `save_to_egnyte` and `load_from_egnyte` functions.
+
+Note that these functions call the base `save` and `load` functions which persist the name(s) of the objects that were created so you should not use them in the pipe-ing sense.
+
+Also - you can save multiple objects into a single `.RData` file so in the `save_to_egnyte` function **you must specify the `dest` argument**.
+
+```{r eval = F}
+my_flower_model <- lm(Sepal.Length ~ ., data = iris)
+
+# This saves an object into Egnyte
+save_to_egnyte(my_flower_model, dest = "/Shared/path/to/flower/data.RData")
+
+# This will load an object called "my_flower_model" into the environment
+load_from_egnyte("/Shared/path/to/flower/data.RData")
+```
 
 ## Notes
 

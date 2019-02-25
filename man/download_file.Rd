@@ -11,9 +11,11 @@ download_file(source, local_dest, file_type = "raw",
 \arguments{
 \item{source}{The full path (starting 'Shared/') of the remote file}
 
+\item{local_dest}{The local file to be created}
+
 \item{file_type}{The MIME file type to pull the file in, see \link[httr]{content} for more info}
 
-\item{encoding}{The default encoding to use for the content translatio, see \link[httr]{content} for more info}
+\item{encoding}{The default encoding to use for the content translation, see \link[httr]{content} for more info}
 
 \item{token}{User's Egnyter authorisation token}
 
