@@ -97,6 +97,36 @@ download_csv <- function(source, encoding = "ISO-8859-1", token = get_parameter(
   invisible(downloaded_data)
 }
 
+#' Download a delimited file from Egnyte into a local data frame
+#'
+#' This function downloads and parses a delimited file from Egnyte into
+#' a local data frame in R.
+#'
+#' @param source The path of the remote file in your Egnyte filesystem
+#' @param delim Single character used to separate fields within a record
+#' @param encoding The default encoding to use for content translation
+#' @param token User's Egnyter authorisation token
+#' @param domain Egnyte domain URL
+#' @param ... Additional arguments to be passed to `read_delim`
+#' @export
+download_delim <- function(source, delim, encoding = "ISO-8859-1", token = get_parameter("token"), domain = get_parameter("domain"), ...)
+{
+  # Create a new temporary file (csv)
+  tmp_name <- tempfile(fileext = ".csv")
+
+  # Download the data into our temporary file
+  egnyter::download_file(source = source, local_dest = tmp_name, file_type = "raw", encoding = encoding, domain = domain)
+
+  # Read the temporary file into R
+  downloaded_data <- readr::read_delim(tmp_name, delim, ...)
+
+  # Remove temporary file
+  file.remove(tmp_name)
+
+  # Return dataframe invisibly
+  invisible(downloaded_data)
+}
+
 #' Download an Excel file from Egnyte into a local data frame
 #'
 #' This function downloads and parses an Excel file from Egnyte into
