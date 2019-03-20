@@ -3,6 +3,7 @@
 export("%>%")
 export(authenticate_user)
 export(download_csv)
+export(download_delim)
 export(download_excel)
 export(download_feather)
 export(download_file)
