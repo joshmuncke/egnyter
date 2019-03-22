@@ -25,8 +25,12 @@ create_folder <- function(parent_folder, new_folder_name, token = get_parameter(
   folder_create_path <- paste0(domain, "pubapi/v1/fs/", parent_folder, "/", new_folder_name)
 
   # GET request to retrieve file data
-  folder_req <- httr::POST(url = folder_create_path, httr::add_headers(Authorization = token),
-                           body = list(action = "add_folder"))
+  folder_req <- httr::POST(url = folder_create_path,
+                           httr::add_headers(Authorization = token),
+                           config = httr::content_type("application/json"),
+                           data = list('"action":"add_folder"'))
+
+  print(folder_req)
 
   # Alert us if there's a problem
   httr::stop_for_status(folder_req)
