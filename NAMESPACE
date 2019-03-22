@@ -2,6 +2,7 @@
 
 export("%>%")
 export(authenticate_user)
+export(create_folder)
 export(download_csv)
 export(download_delim)
 export(download_excel)
