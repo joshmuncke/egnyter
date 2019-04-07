@@ -115,6 +115,14 @@ save_to_egnyte(my_flower_model, dest = "/Shared/path/to/flower/data.RData")
 load_from_egnyte("/Shared/path/to/flower/data.RData")
 ```
 
+### Folders
+
+You can create a new folder in your Egnyte filesystem by using the `create_folder` function.
+
+``` r
+create_folder("/Shared/path/to/folder", "newfolder")
+```
+
 Notes
 -----
 
