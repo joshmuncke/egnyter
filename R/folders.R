@@ -28,12 +28,14 @@ create_folder <- function(parent_folder, new_folder_name, token = get_parameter(
   folder_req <- httr::POST(url = folder_create_path,
                            httr::add_headers(Authorization = token),
                            config = httr::content_type("application/json"),
-                           data = list('"action":"add_folder"'))
-
-  print(folder_req)
+                           body = list("action" = "add_folder"),
+                           encode = "json" #, httr::verbose()
+                           )
 
   # Alert us if there's a problem
   httr::stop_for_status(folder_req)
+
+  print("Folder created successfully")
 
   invisible(folder_create_path)
 }
