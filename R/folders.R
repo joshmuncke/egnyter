@@ -16,13 +16,14 @@ create_folder <- function(parent_folder, new_folder_name, token = get_parameter(
 
   # Add a trailing '/' if not given
   if(stringr::str_sub(domain, -1) != "/") domain <- paste0(domain,"/")
+  if(stringr::str_sub(parent_folder, -1) != "/") parent_folder <- paste0(parent_folder,"/")
 
   # Replace whitespace in folder paths
   parent_folder <- stringr::str_replace_all(parent_folder, " ", "%20")
   new_folder_name <- stringr::str_replace_all(new_folder_name, " ", "%20")
 
   # Formatted path of folder to create path
-  folder_create_path <- paste0(domain, "pubapi/v1/fs/", parent_folder, "/", new_folder_name)
+  folder_create_path <- paste0(domain, "pubapi/v1/fs/", parent_folder, new_folder_name)
 
   # GET request to retrieve file data
   folder_req <- httr::POST(url = folder_create_path,
@@ -35,7 +36,9 @@ create_folder <- function(parent_folder, new_folder_name, token = get_parameter(
   # Alert us if there's a problem
   httr::stop_for_status(folder_req)
 
-  print("Folder created successfully")
+  print(paste0("Folder created successfully: [" , paste0(parent_folder, new_folder_name) , "]"))
+
+  Sys.sleep(0.25) # API will block us if we make too many requests too quickly
 
   invisible(folder_create_path)
 }
