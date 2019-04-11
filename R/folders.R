@@ -38,7 +38,5 @@ create_folder <- function(parent_folder, new_folder_name, token = get_parameter(
 
   print(paste0("Folder created successfully: [" , paste0(parent_folder, new_folder_name) , "]"))
 
-  Sys.sleep(0.25) # API will block us if we make too many requests too quickly
-
   invisible(folder_create_path)
 }
