@@ -106,7 +106,7 @@ upload_feather <- function(x, dest, token = egnyter::get_parameter("token"), dom
 #' @param token User's Egnyter authorisation token
 #' @param domain Egnyte domain URL
 #' @export
-save_to_egnyte <- function(object, dest, token = egnyter::get_parameter("token"), domain = egnyter::get_parameter("domain")) {
+upload_rds <- function(object, dest, token = egnyter::get_parameter("token"), domain = egnyter::get_parameter("domain")) {
   # Write to temp RData file
   tmp_name <- tempfile(fileext = ".rds")
   saveRDS(object, file = tmp_name)
