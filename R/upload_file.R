@@ -96,10 +96,10 @@ upload_feather <- function(x, dest, token = egnyter::get_parameter("token"), dom
   invisible(x)
 }
 
-#' Upload an RData file to Egnyte
+#' Upload an RDS file to Egnyte
 #'
-#' This function saves a local object as an RData file and uploads it to a specified Egnyte directory.
-#' Object to RData conversion is done using \code{\link[base]{save}}.
+#' This function saves a local object as an RDS file and uploads it to a specified Egnyte directory.
+#' Object to RDS conversion is done using \code{\link[base]{saveRDS}}.
 #'
 #' @param object The object to be saved
 #' @param dest The remote Egnyte file path you want to upload to
@@ -108,8 +108,8 @@ upload_feather <- function(x, dest, token = egnyter::get_parameter("token"), dom
 #' @export
 save_to_egnyte <- function(object, dest, token = egnyter::get_parameter("token"), domain = egnyter::get_parameter("domain")) {
   # Write to temp RData file
-  tmp_name <- tempfile(fileext = ".RData")
-  save(object, file = tmp_name)
+  tmp_name <- tempfile(fileext = ".rds")
+  saveRDS(object, file = tmp_name)
 
   # Upload request
   egnyter::upload_file(tmp_name, dest, token, domain)

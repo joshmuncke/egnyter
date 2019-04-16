@@ -2,7 +2,7 @@
 % Please edit documentation in R/upload_file.R
 \name{save_to_egnyte}
 \alias{save_to_egnyte}
-\title{Upload an RData file to Egnyte}
+\title{Upload an RDS file to Egnyte}
 \usage{
 save_to_egnyte(object, dest, token = egnyter::get_parameter("token"),
   domain = egnyter::get_parameter("domain"))
@@ -17,6 +17,6 @@ save_to_egnyte(object, dest, token = egnyter::get_parameter("token"),
 \item{domain}{Egnyte domain URL}
 }
 \description{
-This function saves a local object as an RData file and uploads it to a specified Egnyte directory.
-Object to RData conversion is done using \code{\link[base]{save}}.
+This function saves a local object as an RDS file and uploads it to a specified Egnyte directory.
+Object to RDS conversion is done using \code{\link[base]{saveRDS}}.
 }
