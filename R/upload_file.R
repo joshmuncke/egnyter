@@ -107,7 +107,7 @@ upload_feather <- function(x, dest, token = egnyter::get_parameter("token"), dom
 #' @param domain Egnyte domain URL
 #' @export
 upload_rds <- function(object, dest, token = egnyter::get_parameter("token"), domain = egnyter::get_parameter("domain")) {
-  # Write to temp RData file
+  # Write to temp rds file
   tmp_name <- tempfile(fileext = ".rds")
   saveRDS(object, file = tmp_name)
 
