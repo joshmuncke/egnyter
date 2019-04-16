@@ -162,10 +162,10 @@ download_excel <- function(source, encoding = "ISO-8859-1", token = get_paramete
   invisible(downloaded_data)
 }
 
-#' Download an RData file from Egnyte and load contents into R
+#' Download an RDS file from Egnyte and load contents into R
 #'
-#' This function downloads and parses an RData file from Egnyte into
-#' local objects (as if you had loaded the file using \link[base]{load}).
+#' This function downloads and parses an object in an RDS file from Egnyte into
+#' a local object (using \link[base]{readRDS}).
 #'
 #' @param source The path of the remote file in your Egnyte filesystem
 #' @param encoding The default encoding to use for content translation
@@ -173,20 +173,20 @@ download_excel <- function(source, encoding = "ISO-8859-1", token = get_paramete
 #' @param domain Egnyte domain URL
 #' @param ... Additional arguments to be passed to `load`
 #' @export
-load_from_egnyte <- function(source, encoding = "ISO-8859-1", token = get_parameter("token"), domain = get_parameter("domain"), ...)
+download_rds <- function(source, encoding = "ISO-8859-1", token = get_parameter("token"), domain = get_parameter("domain"), ...)
 {
-  # Create a new temporary file (RData)
-  tmp_name <- tempfile(fileext = ".RData")
+  # Create a new temporary file (rds)
+  tmp_name <- tempfile(fileext = ".rds")
 
   # Download the data into our temporary file
   egnyter::download_file(source = source, local_dest = tmp_name, file_type = "raw", encoding = encoding, domain = domain)
 
   # Load this data into the global environment
-  load(tmp_name, .GlobalEnv)
+  newobject <- readRDS(tmp_name)
 
   # Remove temporary file
   file.remove(tmp_name)
 
-  # Return TRUE invisibly
-  invisible(TRUE)
+  # Return the new object invisibly
+  invisible(newobject)
 }
