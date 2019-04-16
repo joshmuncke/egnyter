@@ -99,18 +99,18 @@ download_file("/Shared/path/to/your/file.jpg", "/data/photos/file.jpg")
 
 ### Loading and Saving
 
-In addition to transferring data stored in data frames to Egnyte, you may also want to transfer other objects (such as model objects). To support this kind of activity use the `save_to_egnyte` and `load_from_egnyte` functions.
+In addition to transferring data stored in data frames to Egnyte, you may also want to transfer other objects (such as model objects). To support this kind of activity use the `upload_rds` and `download_rds` functions.
 
-Note that these functions call the base `save` and `load` functions which persist the name(s) of the objects that were created so you should not use them in the pipe-ing sense.
+Note that these functions call the base `saveRDS` and `loadRDS` functions from the `base` library.
 
 ``` r
 my_flower_model <- lm(Sepal.Length ~ ., data = iris)
 
 # This saves an object into Egnyte
-save_to_egnyte(my_flower_model, dest = "/Shared/path/to/flower/data.RData")
+upload_rds(my_flower_model, dest = "/Shared/path/to/flower/data.rds")
 
 # This will load an object called "my_flower_model" into the environment
-load_from_egnyte("/Shared/path/to/flower/data.RData")
+my_flower_model <- download_rds("/Shared/path/to/flower/data.rds")
 ```
 
 ### Folders
