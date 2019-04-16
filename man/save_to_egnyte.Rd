@@ -4,11 +4,11 @@
 \alias{save_to_egnyte}
 \title{Upload an RData file to Egnyte}
 \usage{
-save_to_egnyte(..., dest, token = egnyter::get_parameter("token"),
+save_to_egnyte(object, dest, token = egnyter::get_parameter("token"),
   domain = egnyter::get_parameter("domain"))
 }
 \arguments{
-\item{...}{The names of the objects to be saved}
+\item{object}{The object to be saved}
 
 \item{dest}{The remote Egnyte file path you want to upload to}
 

@@ -103,8 +103,6 @@ In addition to transferring data stored in data frames to Egnyte, you may also w
 
 Note that these functions call the base `save` and `load` functions which persist the name(s) of the objects that were created so you should not use them in the pipe-ing sense.
 
-Also - you can save multiple objects into a single `.RData` file so in the `save_to_egnyte` function **you must specify the `dest` argument**.
-
 ``` r
 my_flower_model <- lm(Sepal.Length ~ ., data = iris)
 
