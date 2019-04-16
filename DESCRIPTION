@@ -1,7 +1,7 @@
 Package: egnyter
 Type: Package
 Title: Read and Write Data to Egnyte from R
-Version: 1.0.3
+Version: 1.0.4
 Author: Josh Muncke
 Maintainer: Josh Muncke <josh.muncke@redbull.com>
 Description: The egnyter package allows you to read and write data
