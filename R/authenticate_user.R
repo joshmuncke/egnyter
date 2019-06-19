@@ -41,6 +41,10 @@ authenticate_user <- function(domain, app_key, username, password) {
   # Add a trailing '/' if not given
   if(stringr::str_sub(domain, -1) != "/") { domain <- paste0(domain,"/") }
 
+  # URL encode username and password
+  username = utils::URLencode(username)
+  password = utils::URLencode(password)
+
   # Create the url and body of the auth call
   authentication_url <- paste0(domain, "puboauth/token")
   authentication_string <- paste0("client_id=", app_key, "&username=", username, "&password=", password, "&grant_type=password")
