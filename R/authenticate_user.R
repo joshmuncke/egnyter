@@ -49,7 +49,7 @@ authenticate_user <- function(domain, app_key, app_secret, username, password) {
   # Create the url and body of the auth call
   authentication_url <- paste0(domain, "puboauth/token")
   authentication_string <- paste0("client_id=", app_key,
-                                  "client_secret=", app_secret,
+                                  "&client_secret=", app_secret,
                                   "&username=", username,
                                   "&password=", password,
                                   "&grant_type=password")
