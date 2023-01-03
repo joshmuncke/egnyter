@@ -7,10 +7,11 @@
 #'
 #' @param domain the URL of your Egnyte domain
 #' @param app_key API key of your Egnyte application
+#' @param app_secret API secret key of your Egnyte application (new as of 2019)
 #' @param username user's Egnyte username
 #' @param password user's Egnyte password
 #' @export
-set_token <- function(domain, app_key, username, password) {
+set_token <- function(domain, app_key, app_secret, username, password) {
   # Check domain
   if(!validate_domain(domain)) {
     stop("Invalid Egnyte domain.",
@@ -23,7 +24,7 @@ set_token <- function(domain, app_key, username, password) {
          call. = FALSE)
   }
 
-  token_value <- authenticate_user(domain, app_key, username, password)
+  token_value <- authenticate_user(domain, app_key, app_secret, username, password)
 
   options(egnyter.auth_token = token_value)
   options(egnyter.domain = domain)
