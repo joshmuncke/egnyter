@@ -11,6 +11,8 @@ set_token(domain, app_key, username, password)
 
 \item{app_key}{API key of your Egnyte application}
 
+\item{app_secret}{API secret key of your Egnyte application}
+
 \item{username}{user's Egnyte username}
 
 \item{password}{user's Egnyte password}
