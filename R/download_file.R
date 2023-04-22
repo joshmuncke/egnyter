@@ -179,7 +179,7 @@ download_rds <- function(source, encoding = "ISO-8859-1", token = get_parameter(
   tmp_name <- tempfile(fileext = ".rds")
 
   # Download the data into our temporary file
-  egnyter::download_file(source = source, local_dest = tmp_name, file_type = "raw", encoding = encoding, domain = domain)
+  egnyter::download_file(source = source, local_dest = tmp_name, file_type = "raw", encoding = encoding, token = token, domain = domain)
 
   # Load this data into the global environment
   newobject <- readRDS(tmp_name)
